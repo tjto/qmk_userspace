@@ -54,7 +54,6 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
   // lead to missed triggers in fast typing. Here, returning 0 means we
   // instead want to "force hold" and disable key repeating.
   switch (keycode) {
-    case HRM_H:
     case HRM_J:
     case HRM_K:
     case HRM_L:
