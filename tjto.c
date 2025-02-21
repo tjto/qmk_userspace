@@ -102,10 +102,10 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 ///////////////////////////////////////////////////////////////////////////////
 const uint16_t escape_combo[] = {KC_E, KC_R, COMBO_END};
 const uint16_t bspc_r_combo[] = {KC_U, KC_I, COMBO_END};
-const uint16_t del_combo[] = {KC_I, KC_O, COMBO_END};
+const uint16_t del_combo[]    = {KC_I, KC_O, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(escape_combo, CW_TOGG),
+    COMBO(escape_combo, KC_ESC),
     COMBO(bspc_r_combo, KC_BSPC),
     COMBO(del_combo, KC_DEL),
 };
