@@ -1,5 +1,6 @@
 #include "features/achordion.h"
-#include "keymap_swedish.h"
+#include "keymap_us_international_linux.h"
+#include "sendstring_us_international.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_achordion(keycode, record)) {
@@ -24,23 +25,45 @@ void housekeeping_task_user(void) {
 #define HRM_L RCTL_T(KC_L)
 #define HRM_SCLN RGUI_T(KC_SCLN)
 
+enum unicode_names {
+  U_AW_LOWER,
+  U_AW_UPPER,
+  U_AO_LOWER,
+  U_AO_UPPER,
+  U_OW_LOWER,
+  U_OW_UPPER,
+};
+
+const uint32_t unicode_map[] PROGMEM = {
+    [U_AO_LOWER] = 0x00E5,  // å
+    [U_AO_UPPER] = 0x00C5,  // Å
+    [U_AW_LOWER] = 0x00E4,  // ä
+    [U_AW_UPPER] = 0x00C4,  // Ä
+    [U_OW_LOWER] = 0x00F6,  // ö
+    [U_OW_UPPER] = 0x00D6,  // Ö
+};
+
+#define U_AO XP(U_AO_LOWER, U_AO_UPPER)
+#define U_AW XP(U_AW_LOWER, U_AW_UPPER)
+#define U_OW XP(U_OW_LOWER, U_OW_UPPER)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       KC_MINUS,
         KC_LCTL, HRM_A,   HRM_S,  HRM_D,   HRM_F,    KC_G,                               KC_H,   HRM_J,    HRM_K,   HRM_L,   HRM_SCLN,   KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_EQL,
-                                            KC_LGUI, TT(1), KC_SPC,           KC_ENT,  TT(2),  KC_RALT
+                                            TT(1), TT(1), KC_SPC,           KC_ENT,  TT(2),  TT(2)
     ),
     [1] = LAYOUT_split_3x6_3(
         KC_TRNS,  S(KC_1),  S(KC_2),  S(KC_3),  S(KC_4),     S(KC_5),                S(KC_6),     S(KC_7),     S(KC_8),  S(KC_9),  S(KC_0),  S(KC_GRV),
-        KC_TRNS,  SE_ADIA,  SE_ARNG,  KC_LBRC,  S(KC_LBRC),  KC_BSLS,                S(KC_BSLS),  S(KC_RBRC),  KC_RBRC,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LBRC,  S(KC_LBRC),  KC_BSLS,                S(KC_BSLS),  S(KC_RBRC),  KC_RBRC,  KC_TRNS,  KC_TRNS,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,                KC_TRNS,     KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                             KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
     [2] = LAYOUT_split_3x6_3(
         KC_TRNS,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_GRV,
-        KC_TRNS,  SE_ADIA,  SE_ARNG,  SE_ODIA,  KC_TRNS,  KC_TRNS,                KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_TRNS,  KC_TRNS,
+        KC_TRNS,  U_AW_LOWER,  U_AO_LOWER,  U_OW_LOWER,  KC_TRNS,  KC_TRNS,                KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_TRNS,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                             KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
     )
@@ -50,13 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tap-hold configuration (https://docs.qmk.fm/tap_hold)
 ///////////////////////////////////////////////////////////////////////////////
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
-  switch (keycode) {
-    case HRM_F:
-    case HRM_J:
-      return TAPPING_TERM - 45;
-    default:
       return TAPPING_TERM;
-  }
 }
 
 uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
@@ -89,12 +106,6 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
-  // Also allow same-hand holds when the other key is in the rows outside the
-  // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboards are split.
-  const uint8_t row = other_record->event.key.row % (MATRIX_ROWS / 2);
-  if (!(1 <= row && row <= 3)) { return true; }
-
-
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
