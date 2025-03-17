@@ -35,17 +35,17 @@ enum unicode_names {
 };
 
 const uint32_t unicode_map[] PROGMEM = {
-    [U_AO_LOWER] = 0x00E5,  // å
-    [U_AO_UPPER] = 0x00C5,  // Å
-    [U_AW_LOWER] = 0x00E4,  // ä
-    [U_AW_UPPER] = 0x00C4,  // Ä
-    [U_OW_LOWER] = 0x00F6,  // ö
-    [U_OW_UPPER] = 0x00D6,  // Ö
+    [U_AO_LOWER] = 0x00e5,  // å
+    [U_AO_UPPER] = 0x00c5,  // Å
+    [U_AW_LOWER] = 0x00e4,  // ä
+    [U_AW_UPPER] = 0x00c4,  // Ä
+    [U_OW_LOWER] = 0x00f6,  // ö
+    [U_OW_UPPER] = 0x00d6,  // Ö
 };
 
-#define U_AO XP(U_AO_LOWER, U_AO_UPPER)
-#define U_AW XP(U_AW_LOWER, U_AW_UPPER)
-#define U_OW XP(U_OW_LOWER, U_OW_UPPER)
+#define U_AO UP(U_AO_LOWER, U_AO_UPPER)
+#define U_AW UP(U_AW_LOWER, U_AW_UPPER)
+#define U_OW UP(U_OW_LOWER, U_OW_UPPER)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [2] = LAYOUT_split_3x6_3(
         KC_TRNS,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_GRV,
-        KC_TRNS,  U_AW_LOWER,  U_AO_LOWER,  U_OW_LOWER,  KC_TRNS,  KC_TRNS,                KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_TRNS,  KC_TRNS,
+        KC_TRNS,  U_AW,     U_AO,     U_OW,     KC_TRNS,  KC_TRNS,                KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_TRNS,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                             KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
     )
