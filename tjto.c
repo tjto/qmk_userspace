@@ -59,13 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  S(KC_1),  S(KC_2),  S(KC_3),  S(KC_4),     S(KC_5),                S(KC_6),     S(KC_7),     S(KC_8),  S(KC_9),  S(KC_0),  S(KC_GRV),
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LBRC,  S(KC_LBRC),  KC_BSLS,                S(KC_BSLS),  S(KC_RBRC),  KC_RBRC,  KC_TRNS,  KC_TRNS,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,                KC_TRNS,     KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                                            KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
+                                            KC_TRNS, KC_TRNS ,  KC_TRNS,           KC_DEL,  KC_ESC,  KC_TRNS
     ),
     [2] = LAYOUT_split_3x6_3(
         KC_TRNS,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_GRV,
         KC_TRNS,  U_AW,     U_AO,     U_OW,     KC_TRNS,  KC_TRNS,                KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_TRNS,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                                            KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
+                                              KC_TRNS, KC_ESC, KC_BSPC,         KC_TRNS, KC_TRNS ,  KC_TRNS
     )
 };
 
@@ -112,13 +112,13 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 ///////////////////////////////////////////////////////////////////////////////
 // Combos (https://docs.qmk.fm/features/combo)
 ///////////////////////////////////////////////////////////////////////////////
-const uint16_t escape_combo[] = {KC_E, KC_R, COMBO_END};
-const uint16_t bspc_r_combo[] = {KC_U, KC_I, COMBO_END};
-const uint16_t del_combo[]    = {KC_I, KC_O, COMBO_END};
+// const uint16_t escape_combo[] = {KC_E, KC_R, COMBO_END};
+// const uint16_t bspc_r_combo[] = {KC_U, KC_I, COMBO_END};
+// const uint16_t del_combo[]    = {KC_I, KC_O, COMBO_END};
 
-combo_t key_combos[] = {
-    COMBO(escape_combo, KC_ESC),
-    COMBO(bspc_r_combo, KC_BSPC),
-    COMBO(del_combo, KC_DEL),
-};
+// combo_t key_combos[] = {
+//     COMBO(escape_combo, KC_ESC),
+//     COMBO(bspc_r_combo, KC_BSPC),
+//     COMBO(del_combo, KC_DEL),
+// };
 
